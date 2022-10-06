@@ -12,7 +12,7 @@ const getClients = async () => {
 }
 
 const updateClient = async (id: string, data: IClient) => {
-  const responseItem = await Client.findOneAndUpdate({ _id: id }, data, {
+  const responseItem = await Client.findByIdAndUpdate({ _id: id }, data, {
     new: true
   })
   return responseItem
@@ -24,7 +24,7 @@ const getClient = async (id: string) => {
 }
 
 const deleteClient = async (id: string) => {
-  const responseItem = await Client.remove({ _id: id })
+  const responseItem = await Client.findByIdAndDelete({ _id: id })
   return responseItem
 }
 
