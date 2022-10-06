@@ -6,26 +6,26 @@ const insertClient = async (item: IClient) => {
   return responseInsert
 }
 
-/* const getCars = async () => {
-  const responseItem = await ItemModel.find({})
+const getClients = async () => {
+  const responseItem = await Client.find({})
   return responseItem
 }
 
-const getCar = async (id: string) => {
-  const responseItem = await ItemModel.findOne({ _id: id })
-  return responseItem
-}
-
-const updateCar = async (id: string, data: Car) => {
-  const responseItem = await ItemModel.findOneAndUpdate({ _id: id }, data, {
+const updateClient = async (id: string, data: IClient) => {
+  const responseItem = await Client.findOneAndUpdate({ _id: id }, data, {
     new: true
   })
   return responseItem
 }
 
-const deleteCar = async (id: string) => {
-  const responseItem = await ItemModel.remove({ _id: id })
+const getClient = async (id: string) => {
+  const responseItem = await Client.findOne({ _id: id })
   return responseItem
-} */
+}
 
-export { insertClient /* , getCars, getCar, updateCar, deleteCar */ }
+const deleteClient = async (id: string) => {
+  const responseItem = await Client.remove({ _id: id })
+  return responseItem
+}
+
+export { insertClient, getClients, getClient, updateClient, deleteClient }

@@ -24,7 +24,7 @@ const updateCar = async (id: string, data: Car) => {
 }
 
 const deleteCar = async (id: string) => {
-  const responseItem = await ItemModel.remove({ _id: id })
+  const responseItem = await ItemModel.deleteOne({ _id: id })
   return responseItem
 }
 
