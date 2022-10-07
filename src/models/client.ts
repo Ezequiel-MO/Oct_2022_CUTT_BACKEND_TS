@@ -1,4 +1,4 @@
-import { Schema, Types, model, Model } from 'mongoose'
+import { Schema, model } from 'mongoose'
 import { IClient } from '../interfaces/client.interface'
 
 const clientSchema = new Schema<IClient>(
