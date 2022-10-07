@@ -1,44 +1,44 @@
 import { Request, Response } from 'express'
 import {
-  insertClient,
-  getClients,
-  updateClient,
-  getClient,
-  deleteClient
-} from '../services/client'
+  insertCountry,
+  getCountries,
+  getCountry,
+  updateCountry,
+  deleteCountry
+} from '../services/country'
 import { handleHttp } from '../utils/error.handle'
 
 const getItem = async ({ params }: Request, res: Response) => {
   try {
     const { id } = params
-    const response = await getClient(id)
+    const response = await getCountry(id)
     const data = response ? response : 'NOT_FOUND'
     res.status(200).json({
       status: response ? 'success' : 'fail',
       data: { data }
     })
   } catch (e) {
-    handleHttp(res, 'ERROR_GET_CLIENT', e)
+    handleHttp(res, 'ERROR_GET_COUNTRY', e)
   }
 }
 const getItems = async (req: Request, res: Response) => {
-  const response = await getClients()
-  res.status(200).json({
-    status: 'success',
-    results: response.length,
-    data: {
-      data: response
-    }
-  })
   try {
+    const response = await getCountries()
+    res.status(200).json({
+      status: 'success',
+      results: response.length,
+      data: {
+        data: response
+      }
+    })
   } catch (e) {
-    handleHttp(res, 'ERROR_GET_CLIENTS', e)
+    handleHttp(res, 'ERROR_GET_COUNTRIES', e)
   }
 }
 const updateItem = async ({ params, body }: Request, res: Response) => {
   try {
     const { id } = params
-    const response = await updateClient(id, body)
+    const response = await updateCountry(id, body)
     res.status(200).json({
       status: 'success',
       data: {
@@ -46,12 +46,12 @@ const updateItem = async ({ params, body }: Request, res: Response) => {
       }
     })
   } catch (e) {
-    handleHttp(res, 'ERROR_UPDATE_CLIENT', e)
+    handleHttp(res, 'ERROR_UPDATE_COUNTRY', e)
   }
 }
 const postItem = async ({ body }: Request, res: Response) => {
   try {
-    const responseItem = await insertClient(body)
+    const responseItem = await insertCountry(body)
     res.status(201).json({
       status: 'success',
       data: {
@@ -59,19 +59,19 @@ const postItem = async ({ body }: Request, res: Response) => {
       }
     })
   } catch (e) {
-    handleHttp(res, 'ERROR_INSERTING_CLIENT', e)
+    handleHttp(res, 'ERROR_POST_COUNTRY', e)
   }
 }
 const deleteItem = async ({ params }: Request, res: Response) => {
   try {
     const { id } = params
-    await deleteClient(id)
+    await deleteCountry(id)
     res.status(204).json({
       status: 'success',
       data: null
     })
   } catch (e) {
-    handleHttp(res, 'ERROR_DELETE_CLIENT', e)
+    handleHttp(res, 'ERROR_DELETE_COUNTRY', e)
   }
 }
 

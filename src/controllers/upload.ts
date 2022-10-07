@@ -1,5 +1,4 @@
-import { Request, Response } from 'express'
-import dbConnect from '../config/mongo'
+import { Response } from 'express'
 import { RequestExt } from '../interfaces/req-ext'
 import { Storage } from '../interfaces/storage'
 import { registerUpload } from '../services/storage'
