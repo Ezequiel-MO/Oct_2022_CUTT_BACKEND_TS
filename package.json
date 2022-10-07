@@ -2,9 +2,9 @@
   "name": "cuttevents_backend_ts",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "dev": "nodemon src/app.ts",
+    "dev": "nodemon server.ts",
     "build": "tsc",
     "start": "node ./dist/app.js"
   },

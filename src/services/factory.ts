@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
 import { Model } from 'mongoose'
+import AppError from '../utils/appError'
 import { handleHttp } from '../utils/error.handle'
 
 const getOne = (Model: Model<any>) => {
@@ -8,10 +9,7 @@ const getOne = (Model: Model<any>) => {
     try {
       const doc = await Model.findById(id)
       if (!doc) {
-        return res.status(404).json({
-          status: 'fail',
-          message: 'No document found with that ID'
-        })
+        return next(new AppError(`No document found with that ID`, 404))
       }
       res.status(200).json({
         status: 'success',
@@ -51,10 +49,7 @@ const updateOne = (Model: Model<any>) => {
         runValidators: true
       })
       if (!doc) {
-        return res.status(404).json({
-          status: 'fail',
-          message: 'No document found with that ID'
-        })
+        return next(new AppError(`No document found with that ID`, 404))
       }
       res.status(200).json({
         status: 'success',
@@ -90,10 +85,7 @@ const deleteOne = (Model: Model<any>) => {
     try {
       const doc = await Model.findByIdAndDelete(id)
       if (!doc) {
-        return res.status(404).json({
-          status: 'fail',
-          message: 'No document found with that ID'
-        })
+        return next(new AppError(`No document found with that ID`, 404))
       }
       res.status(204).json({
         status: 'success',
