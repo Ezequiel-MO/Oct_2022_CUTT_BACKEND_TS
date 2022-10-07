@@ -6,9 +6,15 @@ import {
   postItem,
   updateItem
 } from '../controllers/country'
+import { checkAuth } from '../middleware/session'
+
 const router = Router()
 
-router.route('/').get(getItems).post(postItem)
-router.route('/:id').get(getItem).patch(updateItem).delete(deleteItem)
+router.route('/').get(checkAuth, getItems).post(checkAuth, postItem)
+router
+  .route('/:id')
+  .get(checkAuth, getItem)
+  .patch(checkAuth, updateItem)
+  .delete(checkAuth, deleteItem)
 
 export { router }
