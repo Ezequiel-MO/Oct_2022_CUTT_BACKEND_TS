@@ -7,7 +7,9 @@ const getOne = (Model: Model<any>) =>
   catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const { id } = req.params
     const doc = await Model.findById(id)
-    if (!doc) next(new AppError(`No document found with that ID`, 404))
+    if (!doc) {
+      return next(new AppError(`No document found with that ID`, 404))
+    }
     res.status(200).json({
       status: 'success',
       data: {
@@ -48,7 +50,12 @@ const updateOne = (Model: Model<any>) =>
 
 const createOne = (Model: Model<any>) =>
   catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-    const doc = await Model.create(req.body)
+    const model = new Model({ ...req.body })
+    if (req.files) {
+      model.setImgUrl(req.files)
+    }
+    const doc = await model.save()
+
     res.status(201).json({
       status: 'success',
       data: {

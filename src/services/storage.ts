@@ -1,9 +1,15 @@
-import { Storage } from '../interfaces/storage'
-import StorageModel from '../models/storage'
+import { S3 } from 'aws-sdk'
 
-const registerUpload = async ({ fileName, idUser, path }: Storage) => {
-  const responseItem = await StorageModel.create({ fileName, idUser, path })
-  return responseItem
+const s3Upload = async (file: Express.Multer.File) => {
+  const s3 = new S3()
+
+  const param = {
+    Bucket: process.env.AWS_BUCKET_NAME,
+    Key: `${file.originalname}-${Date.now()}.png`,
+    Body: file.buffer
+  }
+  // @ts-ignore
+  return await s3.upload(param).promise()
 }
 
-export { registerUpload }
+export { s3Upload }
