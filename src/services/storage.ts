@@ -4,7 +4,7 @@ const s3Upload = async (file: Express.Multer.File) => {
   const s3 = new S3()
 
   const param = {
-    Bucket: process.env.AWS_BUCKET_NAME,
+    Bucket: config.AWS_BUCKET_NAME,
     Key: `${file.originalname}-${Date.now()}.png`,
     Body: file.buffer
   }

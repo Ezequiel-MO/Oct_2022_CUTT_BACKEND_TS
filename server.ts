@@ -5,11 +5,7 @@ import helmet from 'helmet'
 import hpp from 'hpp'
 import cookieSession from 'cookie-session'
 import compression from 'compression'
-import { config } from 'dotenv'
-
-config({
-  path: './config.env'
-})
+import { config } from './config'
 
 export class CUTTeventsSERVER {
   private app: Application
@@ -29,16 +25,16 @@ export class CUTTeventsSERVER {
     app.use(
       cookieSession({
         name: 'session',
-        keys: ['test1', 'test2'],
+        keys: [config.SECRET_KEY_ONE!, config.SECRET_KEY_TWO!],
         maxAge: 24 * 7 * 60 * 60 * 1000, // 7 days
-        secure: false
+        secure: config.NODE_ENV !== 'development'
       })
     )
     app.use(hpp())
     app.use(helmet())
     app.use(
       cors({
-        origin: '*',
+        origin: config.FRONTEND_URL,
         credentials: true,
         methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS']
       })
@@ -62,8 +58,8 @@ export class CUTTeventsSERVER {
 
   private createSocketIO(httpServer: http.Server): void {}
   private startHttpServer(httpServer: http.Server): void {
-    httpServer.listen(process.env.PORT, () => {
-      console.log(`Server is running on port ${process.env.PORT}`)
+    httpServer.listen(config.PORT, () => {
+      console.log(`Server is running on port ${config.PORT}`)
     })
   }
 }
