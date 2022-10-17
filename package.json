@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "dev": "nodemon server.ts",
+    "dev": "nodemon src/app.ts",
     "build": "tsc",
     "start": "node ./dist/app.js"
   },
@@ -13,11 +13,18 @@
   "license": "ISC",
   "dependencies": {
     "@aws-sdk/client-s3": "^3.186.0",
+    "@types/cookie-session": "^2.0.44",
     "aws-sdk": "^2.895.0",
     "bcryptjs": "^2.4.3",
+    "compression": "^1.7.4",
+    "cookie-session": "^2.0.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.1",
+    "express-async-errors": "^3.1.1",
+    "helmet": "^6.0.0",
+    "hpp": "^0.2.3",
+    "http-status-codes": "^2.2.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.6.4",
     "multer": "^1.4.2",
@@ -26,10 +33,13 @@
   "devDependencies": {
     "@aws-sdk/types": "^3.186.0",
     "@types/bcryptjs": "^2.4.2",
+    "@types/compression": "^1.7.2",
     "@types/cors": "^2.8.12",
     "@types/express": "^4.17.14",
+    "@types/hpp": "^0.2.2",
     "@types/jsonwebtoken": "^8.5.9",
     "@types/multer": "^1.4.7",
-    "@types/multer-s3": "^3.0.0"
+    "@types/multer-s3": "^3.0.0",
+    "ts-node": "^10.9.1"
   }
 }

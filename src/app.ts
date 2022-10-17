@@ -1,16 +1,21 @@
-import express, { NextFunction } from 'express'
-import cors from 'cors'
-import { router } from './routes'
-import AppError from './utils/appError'
+import express, { Express } from 'express'
+import { CUTTeventsSERVER } from '../server'
+import { dbConnect } from '../mongo'
+import { config } from '../config'
 
-const app = express()
-app.use(cors())
-app.use(express.json())
+class Application {
+  public initialize(): void {
+    this.loadConfig()
+    dbConnect()
+    const app: Express = express()
+    const server: CUTTeventsSERVER = new CUTTeventsSERVER(app)
+    server.start()
+  }
+  private loadConfig(): void {
+    config.validateConfig()
+  }
+}
 
-app.use(router)
+const application: Application = new Application()
 
-app.all('*', (req, res, next: NextFunction) =>
-  next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404))
-)
-
-export default app
+application.initialize()

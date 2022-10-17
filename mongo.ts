@@ -1,5 +1,6 @@
 import dotenv from 'dotenv'
 import { connect } from 'mongoose'
+import mongoose from 'mongoose'
 
 dotenv.config({ path: './config.env' })
 
@@ -10,7 +11,7 @@ const DB_URI = <string>(
   )
 )
 
-const dbConnect = async (): Promise<void> => {
+export const dbConnect = async (): Promise<void> => {
   try {
     const connection = await connect(DB_URI)
     console.log(
@@ -23,4 +24,4 @@ const dbConnect = async (): Promise<void> => {
   await connect(DB_URI)
 }
 
-export default dbConnect
+mongoose.connection.on('disconnected', connect)
